@@ -1,5 +1,4 @@
-#!/usr/bin/perl -Tw
-#=cut
+=cut
 #= Kid Radd: KREPES: KREPES.pm
 # Project   : Kid Radd: KREPES
 # File      : <KREPES root>/src/RaddTeam/KREPES.pm
@@ -17,18 +16,21 @@
 # there will be other RaddTeam packages? Yes, yes it does. This also means 
 # when this is propperly installed, that it will be loaded into a library 
 # directory of RaddTeam, with this file named KREPES.pl.
+
 package RaddTeam::KREPES;
 
 #=== Important Variables
 
-our $VERSION = v0.0.1;
+our $VERSION = v0.0.2;
+# You should prolly set this in your own modification of this.
+our $PROGRAM_NAME = q[Kid Radd:: KREPES];
 
 #=== Loading libraries
 # First I generally load the system libraries first. Most of these are pretty 
 # standard stuff to include for this sort of project.
 
 # First some basic MooseX stuff.
-use MooseX::POE;
+use Moose;
 use MooseX::StrictConstructor;
 use MooseX::Params::Validate;
 
@@ -162,20 +164,37 @@ for local $_ (__PACKAGE__->meta->methods) {
 	unless $_ eq "Logger" {
 		before $_ => sub {
 			my $self = shift;
-			$self->Logger->push_profile($_);
-			$self->Logger->info(qq[We are now headed into $_]);
+			my $type = ref($self)
+				|| confess sprintf(q[Tried to call the %s before event in %s, but caller %s is not an object],
+					qw[$_ __PACKAGE__ $self]);
+			confess sprintf(q[in %s before event within %s we are having issues talking to the logger]
+				qw[$_ __PACKAGE__])
+					unless($self->has_Logger);
+			$self->Logger->push_profile(__PACKAGE__, $_);
+			$self->Logger->info(new KR:Info(
+				-name => q[entering function],
+				-message => q[We are now headed into %s],
+				-variables => q[$_]));
 		};
 		after $_ => sub {
 			my $self = shift;
-			$self->Logger->pop_profile($_);
-			$self->Logger->info(qq[We are now leaving $_]);
+			my $type = ref($self)
+				|| confess sprintf(q[Trod tp call the %s before event in %s, but caller %s is not an object],
+					qw[$_ __PACKAGE__ $self]);
+			confess sprintf(q[in %s after event within %s we are having issues talking to the logger]
+				qw[$_ __PACKAGE__]) 
+					unless($self->has_Logger);
+			$self->Logger->pop_profile(__PACKAGE__, $_);
+			$self->Logger->info(new KR:Info(
+				-name => q[leaving function],
+				-message => q[We are now leaving %s],
+				-variables => q[$_]);
 		};
 	}
 }
 
 no MooseX::POE;
 __PACKAGE__->meta->make_immutable();
-POE::Kernel->run();
 
 __END__;
 
@@ -183,7 +202,9 @@ __END__;
 
 =head1 Name
 
-RaddTeam::KREPES 2d Gaming Engine
+RaddTeam::KREPES (extends RaddTeam::KREPES::Widget)
+
+A 2d Game Framework.
 
 =head1 Overview
 
@@ -196,6 +217,8 @@ KREPES is kind of redundant. Sorry.
 =head1 Description
 
 =head1 See Also
+
+RaddTeam::KREPES::Manual
 
 =head1 Acknowledgements
 

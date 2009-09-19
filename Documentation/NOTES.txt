@@ -1,0 +1,33 @@
+Notes:
+
+20090919 -- Katrina Payne:
+ * Changing logging functions to take two arguments. One is the message string 
+   The second is a list of variables to be put into it. Generally the Logger 
+   will now be made to be set up to render the string internally using sprintf 
+   as, there is no reason to require the user of this engine to remember to 
+   properly format their string. And in many cases, none of them will do it 
+   anyways. This way we kind of force them to do it properly
+ * furthering this, each error message entry will now make use of named 
+   arguments. Mostly in an exception setup. Further more on this, the Logger
+   will prolly also be set up to use events and a buffer. Possibly waiting 
+   a certain amount of time, before firing off everything into the log (this). 
+   would likely be variable. In many cases the log would be a text file, but
+   other options would include an SQLite Database, some manner of bug trac or
+   possibly a network connection. The network connection option would allow 
+   other games connected to this one to know what is going on, and deal with 
+   the stuff on their end appropriately. Generally a filter would be used 
+   to determine what would be sent, and what would not. A filter could also be 
+   set up to determine what would be allowed to be recieved on the error 
+   information. 
+ * Do not worry about the logger object logging too much. In the Config files
+   you will be able to tell it to ignore profiling and certain levels of 
+   logging. Also certain log entry names (defined by -name) well generally be 
+   suggested to be bypassed. These tools are mostly for the developers of
+   Kid Radd: KREPES and games using Kid Radd: KREPES
+ * You know... I could prolly have some loop I call at the beginning of a 
+   function to make sure certain veriables are set... you know what... will 
+   do.
+ * Need to actually put some more of the content. Right now it is mostly 
+   Just basic stuff (stripped across 5 actual modules)
+ * Need to look into a better event system than POE. Possibly look into 
+   threading. Maybe also look if Boost has been added.

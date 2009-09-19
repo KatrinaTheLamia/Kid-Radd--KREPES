@@ -1,0 +1,12 @@
+Kid Radd: KREPES: Changelog.
+
+20090919: Katrina Payne
+ * Added new types
+ * Decided that KR::Logger would likely require being an IO device, so that 
+   it can deal with errors of other programs attache to it.
+ * Modified RaddTeam::KREPES::Screen.pm.
+ * Created NOTES.txt file.
+ * Started working on RaddTeam::KREPES::Screen::Kanvas.pm
+ * Started work on RaddTeam::Events
+ * Created this Changelog file.
+ * I am a horridly slow coder BTW.
