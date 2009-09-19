@@ -3,7 +3,31 @@ Kid Radd: KREPES (Kid Radd Existance Project Engine System)
 
 Still work on this... this is all largely early stuff.
 
-Version 0.0.1:
- - Started work on the main class
- - Did first setup of the custom types
- - Started the Screen data type
+Meaning most of the stuff has not actually been coded yet, and is currently
+just being hammered out.
+
+Kid Radd: KREPES is now slowly moving from a 2d Platformer engine into a 
+2D game framework. This mostly because I am adding a fair amount of stuff I 
+kind of desire in a 2d game engine.
+
+Current (planned) feature list:
+ * Event based system (currently looking into Boost)
+ * Large amount of 2d Graphic support (currently looking at Image Magick)
+ * Configuration System. Should support SQLite, *.conf, *.ini and Lua based 
+   configurations for Kid Radd: KREPES
+ * Joystick/Keyboard Support (via perl_SDL)
+ * Secure Network Code Handler
+ * Raddical OAM. An extendible sprite system
+ * Painful Levels. An extendible object and tile system
+ * Radd Resources. A resource system that loads and caches in memory 
+   the required sounds and images.
+ * Over designed logging system. Generally used to make diagnosing problems 
+   in code much easier. Will be able to write to text, SQLite or network.
+   * the network logging system will be set up to either send to some Network 
+     STDERR associated with this application, to some Bug Trac system, or 
+     even to another KREPES application. Sending certain errors would make 
+     great to know over a network connection between two KREPES applicatons.
+     It would allow the application at the other end to know to handle it.
+   * Profiling information included into the logger
+   * The configuration allows for certain logging/profile to be disabled. 
+     Or in some cases filter the logging.
